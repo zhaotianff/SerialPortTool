@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "串口助手", "串口助手\串口助手.csproj", "{B4E0F921-DF06-442C-A318-9D0AA55F4EDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortLib", "SerialPortLib\SerialPortLib.csproj", "{D80D294B-D790-4A19-A227-2D3F5FC8CAFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4E0F921-DF06-442C-A318-9D0AA55F4EDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E0F921-DF06-442C-A318-9D0AA55F4EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E0F921-DF06-442C-A318-9D0AA55F4EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4E0F921-DF06-442C-A318-9D0AA55F4EDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D80D294B-D790-4A19-A227-2D3F5FC8CAFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D80D294B-D790-4A19-A227-2D3F5FC8CAFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D80D294B-D790-4A19-A227-2D3F5FC8CAFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D80D294B-D790-4A19-A227-2D3F5FC8CAFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EBF22F3-EEAF-4F1B-AC70-A452D6F4056B}
+	EndGlobalSection
+EndGlobal
