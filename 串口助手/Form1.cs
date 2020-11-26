@@ -16,8 +16,7 @@ namespace 串口助手
     {
         private SerialPortHelper serialPort = new SerialPortHelper();
 
-        private string data = "";
-        private string receiveMessage = "";
+        private string globalData = "";
 
         public Form1()
         {
@@ -30,7 +29,7 @@ namespace 串口助手
         {           
             var baudList = LoadBaudList();
             cbxBaudRateList.Items.AddRange(baudList);
-            cbxBaudRateList.SelectedIndex = 7;
+            cbxBaudRateList.SelectedIndex = 5;
 
             var dataBitList = LoadDataBitList();
             cbxDataBitList.Items.AddRange(dataBitList);
@@ -46,14 +45,29 @@ namespace 串口助手
 
             var portList = LoadPortList();
             cbxSerialPortList.Items.AddRange(portList);
-            cbxSerialPortList.SelectedIndex = 0;
+
+            if (portList.Length > 0)
+            {
+                cbxSerialPortList.SelectedIndex = 0;
+            }
+            else
+            {
+                MessageBox.Show("没有获取到串口");
+            }
 
             EnableSerialProtConfigUI(false);
         }
 
         private string[] LoadPortList()
         {
-            return SerialPort.GetPortNames();
+            try
+            {
+                return SerialPort.GetPortNames();
+            }
+            catch
+            {
+                return new string[] { };
+            }
         }
 
         private string[] LoadBaudList()
@@ -83,6 +97,11 @@ namespace 串口助手
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
+            if (cbxSerialPortList.Items.Count == 0)
+            {
+                return;
+            }
+
             if(btnOpen.Text.Trim() == "打开")
             {
                 var portName = cbxSerialPortList.Text;
@@ -189,7 +208,51 @@ namespace 串口助手
 
         private void ReceiveData(object sender, SerialDataReceivedEventArgs e)
         {
-            
+            var data = "";
+
+            if(radioReceiveASCII.Checked)
+            {
+                data = serialPort.GetRawReceiveData();
+            }
+            else
+            {
+                data = serialPort.GetHexReceiveData();              
+            }
+
+            //在这里处理粘包情况
+            if(cbxSplitMessage.Checked)
+            {              
+                globalData += data;
+                var etxChar = tboxETXChar.Text.Trim();
+
+                //可以调用serialPort.ResolveCommand函数来进行解析，这里目前只分包，不解析
+                if (globalData.Contains(etxChar))
+                {
+                    var showData = globalData.Substring(0,globalData.IndexOf(etxChar) + etxChar.Length);
+
+                    //移除上一次成功结束的数据
+                    globalData = globalData.Replace(showData, "");
+                    ShowData(showData,cbxReceiveAutoWrap.Checked,cbxReceiveShowTimeStamp.Checked);                        
+                }              
+            }
+            else
+            {
+                ShowData(data, cbxReceiveAutoWrap.Checked, cbxReceiveShowTimeStamp.Checked);
+            }           
+        }
+
+        private void ShowData(string data,bool isAutoWrap,bool isShowTimeStamp)
+        {
+            this.rtboxReceive.BeginInvoke(new Action(()=> {
+
+                if (isAutoWrap)
+                    data = data + Environment.NewLine;
+
+                if (isShowTimeStamp)
+                    data = DateTime.Now.ToString() + "\t" + data;
+
+                this.rtboxReceive.Text += data;
+            })); 
         }
  
 
@@ -248,6 +311,18 @@ namespace 串口助手
             if (radioSendFile.Checked)
             {
                 EnablePanel(2);
+            }
+        }
+
+        private void cbxSplitMessage_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbxSplitMessage.Checked)
+            {
+                tboxETXChar.Enabled = true;
+            }
+            else
+            {
+                tboxETXChar.Enabled = false;
             }
         }
     }

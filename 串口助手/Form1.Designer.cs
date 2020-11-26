@@ -42,6 +42,7 @@
             this.cbxSerialPortList = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tboxETXChar = new System.Windows.Forms.TextBox();
             this.cbxSplitMessage = new System.Windows.Forms.CheckBox();
             this.cbxReceiveShowTimeStamp = new System.Windows.Forms.CheckBox();
             this.cbxReceiveAutoWrap = new System.Windows.Forms.CheckBox();
@@ -193,6 +194,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tboxETXChar);
             this.groupBox2.Controls.Add(this.cbxSplitMessage);
             this.groupBox2.Controls.Add(this.cbxReceiveShowTimeStamp);
             this.groupBox2.Controls.Add(this.cbxReceiveAutoWrap);
@@ -205,17 +207,26 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "接收设置";
             // 
+            // tboxETXChar
+            // 
+            this.tboxETXChar.Location = new System.Drawing.Point(201, 156);
+            this.tboxETXChar.Name = "tboxETXChar";
+            this.tboxETXChar.Size = new System.Drawing.Size(100, 21);
+            this.tboxETXChar.TabIndex = 5;
+            this.tboxETXChar.Text = "03";
+            // 
             // cbxSplitMessage
             // 
             this.cbxSplitMessage.AutoSize = true;
             this.cbxSplitMessage.Checked = true;
             this.cbxSplitMessage.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxSplitMessage.Location = new System.Drawing.Point(201, 74);
+            this.cbxSplitMessage.Location = new System.Drawing.Point(64, 158);
             this.cbxSplitMessage.Name = "cbxSplitMessage";
             this.cbxSplitMessage.Size = new System.Drawing.Size(120, 16);
             this.cbxSplitMessage.TabIndex = 4;
             this.cbxSplitMessage.Text = "自动分隔连续消息";
             this.cbxSplitMessage.UseVisualStyleBackColor = true;
+            this.cbxSplitMessage.CheckedChanged += new System.EventHandler(this.cbxSplitMessage_CheckedChanged);
             // 
             // cbxReceiveShowTimeStamp
             // 
@@ -527,6 +538,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.CheckBox cbxSplitMessage;
+        private System.Windows.Forms.TextBox tboxETXChar;
     }
 }
 

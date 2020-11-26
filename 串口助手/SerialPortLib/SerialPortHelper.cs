@@ -10,6 +10,7 @@ namespace SerialPortLib
     public class SerialPortHelper
     {
         private SerialPort sp = new SerialPort();
+        string globalData = "";
 
         public bool OpenSerialPort(string portName, string strBaudRate, string strDataBit, int stopBitIndex, int parityIndex, SerialDataReceivedEventHandler handler = null)
         {
@@ -279,7 +280,7 @@ namespace SerialPortLib
             return value;
         }
 
-        public ISerialPortProtocol GetReceiveData()
+        public ISerialPortProtocol GetReceiveProtocolData()
         {
             var buffer = new byte[sp.BytesToRead];
             sp.Read(buffer, 0, sp.BytesToRead);
